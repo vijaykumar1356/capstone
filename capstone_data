@@ -1,0 +1,2176 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 10.15 (Ubuntu 10.15-0ubuntu0.18.04.1)
+-- Dumped by pg_dump version 10.15 (Ubuntu 10.15-0ubuntu0.18.04.1)
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: accounts_useraccount; Type: TABLE; Schema: public; Owner: capstone
+--
+
+CREATE TABLE public.accounts_useraccount (
+    id integer NOT NULL,
+    password character varying(128) NOT NULL,
+    last_login timestamp with time zone,
+    is_superuser boolean NOT NULL,
+    email character varying(255) NOT NULL,
+    username character varying(255) NOT NULL,
+    first_name character varying(255) NOT NULL,
+    last_name character varying(255) NOT NULL,
+    phone character varying(12) NOT NULL,
+    address character varying(255) NOT NULL,
+    is_active boolean NOT NULL,
+    is_staff boolean NOT NULL
+);
+
+
+ALTER TABLE public.accounts_useraccount OWNER TO capstone;
+
+--
+-- Name: accounts_useraccount_groups; Type: TABLE; Schema: public; Owner: capstone
+--
+
+CREATE TABLE public.accounts_useraccount_groups (
+    id integer NOT NULL,
+    useraccount_id integer NOT NULL,
+    group_id integer NOT NULL
+);
+
+
+ALTER TABLE public.accounts_useraccount_groups OWNER TO capstone;
+
+--
+-- Name: accounts_useraccount_groups_id_seq; Type: SEQUENCE; Schema: public; Owner: capstone
+--
+
+CREATE SEQUENCE public.accounts_useraccount_groups_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.accounts_useraccount_groups_id_seq OWNER TO capstone;
+
+--
+-- Name: accounts_useraccount_groups_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: capstone
+--
+
+ALTER SEQUENCE public.accounts_useraccount_groups_id_seq OWNED BY public.accounts_useraccount_groups.id;
+
+
+--
+-- Name: accounts_useraccount_id_seq; Type: SEQUENCE; Schema: public; Owner: capstone
+--
+
+CREATE SEQUENCE public.accounts_useraccount_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.accounts_useraccount_id_seq OWNER TO capstone;
+
+--
+-- Name: accounts_useraccount_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: capstone
+--
+
+ALTER SEQUENCE public.accounts_useraccount_id_seq OWNED BY public.accounts_useraccount.id;
+
+
+--
+-- Name: accounts_useraccount_user_permissions; Type: TABLE; Schema: public; Owner: capstone
+--
+
+CREATE TABLE public.accounts_useraccount_user_permissions (
+    id integer NOT NULL,
+    useraccount_id integer NOT NULL,
+    permission_id integer NOT NULL
+);
+
+
+ALTER TABLE public.accounts_useraccount_user_permissions OWNER TO capstone;
+
+--
+-- Name: accounts_useraccount_user_permissions_id_seq; Type: SEQUENCE; Schema: public; Owner: capstone
+--
+
+CREATE SEQUENCE public.accounts_useraccount_user_permissions_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.accounts_useraccount_user_permissions_id_seq OWNER TO capstone;
+
+--
+-- Name: accounts_useraccount_user_permissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: capstone
+--
+
+ALTER SEQUENCE public.accounts_useraccount_user_permissions_id_seq OWNED BY public.accounts_useraccount_user_permissions.id;
+
+
+--
+-- Name: auth_group; Type: TABLE; Schema: public; Owner: capstone
+--
+
+CREATE TABLE public.auth_group (
+    id integer NOT NULL,
+    name character varying(150) NOT NULL
+);
+
+
+ALTER TABLE public.auth_group OWNER TO capstone;
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE; Schema: public; Owner: capstone
+--
+
+CREATE SEQUENCE public.auth_group_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_group_id_seq OWNER TO capstone;
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: capstone
+--
+
+ALTER SEQUENCE public.auth_group_id_seq OWNED BY public.auth_group.id;
+
+
+--
+-- Name: auth_group_permissions; Type: TABLE; Schema: public; Owner: capstone
+--
+
+CREATE TABLE public.auth_group_permissions (
+    id integer NOT NULL,
+    group_id integer NOT NULL,
+    permission_id integer NOT NULL
+);
+
+
+ALTER TABLE public.auth_group_permissions OWNER TO capstone;
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE; Schema: public; Owner: capstone
+--
+
+CREATE SEQUENCE public.auth_group_permissions_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_group_permissions_id_seq OWNER TO capstone;
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: capstone
+--
+
+ALTER SEQUENCE public.auth_group_permissions_id_seq OWNED BY public.auth_group_permissions.id;
+
+
+--
+-- Name: auth_permission; Type: TABLE; Schema: public; Owner: capstone
+--
+
+CREATE TABLE public.auth_permission (
+    id integer NOT NULL,
+    name character varying(255) NOT NULL,
+    content_type_id integer NOT NULL,
+    codename character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.auth_permission OWNER TO capstone;
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE; Schema: public; Owner: capstone
+--
+
+CREATE SEQUENCE public.auth_permission_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_permission_id_seq OWNER TO capstone;
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: capstone
+--
+
+ALTER SEQUENCE public.auth_permission_id_seq OWNED BY public.auth_permission.id;
+
+
+--
+-- Name: django_admin_log; Type: TABLE; Schema: public; Owner: capstone
+--
+
+CREATE TABLE public.django_admin_log (
+    id integer NOT NULL,
+    action_time timestamp with time zone NOT NULL,
+    object_id text,
+    object_repr character varying(200) NOT NULL,
+    action_flag smallint NOT NULL,
+    change_message text NOT NULL,
+    content_type_id integer,
+    user_id integer NOT NULL,
+    CONSTRAINT django_admin_log_action_flag_check CHECK ((action_flag >= 0))
+);
+
+
+ALTER TABLE public.django_admin_log OWNER TO capstone;
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE; Schema: public; Owner: capstone
+--
+
+CREATE SEQUENCE public.django_admin_log_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_admin_log_id_seq OWNER TO capstone;
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: capstone
+--
+
+ALTER SEQUENCE public.django_admin_log_id_seq OWNED BY public.django_admin_log.id;
+
+
+--
+-- Name: django_content_type; Type: TABLE; Schema: public; Owner: capstone
+--
+
+CREATE TABLE public.django_content_type (
+    id integer NOT NULL,
+    app_label character varying(100) NOT NULL,
+    model character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.django_content_type OWNER TO capstone;
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE; Schema: public; Owner: capstone
+--
+
+CREATE SEQUENCE public.django_content_type_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_content_type_id_seq OWNER TO capstone;
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: capstone
+--
+
+ALTER SEQUENCE public.django_content_type_id_seq OWNED BY public.django_content_type.id;
+
+
+--
+-- Name: django_migrations; Type: TABLE; Schema: public; Owner: capstone
+--
+
+CREATE TABLE public.django_migrations (
+    id integer NOT NULL,
+    app character varying(255) NOT NULL,
+    name character varying(255) NOT NULL,
+    applied timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.django_migrations OWNER TO capstone;
+
+--
+-- Name: django_migrations_id_seq; Type: SEQUENCE; Schema: public; Owner: capstone
+--
+
+CREATE SEQUENCE public.django_migrations_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_migrations_id_seq OWNER TO capstone;
+
+--
+-- Name: django_migrations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: capstone
+--
+
+ALTER SEQUENCE public.django_migrations_id_seq OWNED BY public.django_migrations.id;
+
+
+--
+-- Name: django_session; Type: TABLE; Schema: public; Owner: capstone
+--
+
+CREATE TABLE public.django_session (
+    session_key character varying(40) NOT NULL,
+    session_data text NOT NULL,
+    expire_date timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.django_session OWNER TO capstone;
+
+--
+-- Name: store_cart; Type: TABLE; Schema: public; Owner: capstone
+--
+
+CREATE TABLE public.store_cart (
+    id integer NOT NULL,
+    user_id integer NOT NULL
+);
+
+
+ALTER TABLE public.store_cart OWNER TO capstone;
+
+--
+-- Name: store_cart_id_seq; Type: SEQUENCE; Schema: public; Owner: capstone
+--
+
+CREATE SEQUENCE public.store_cart_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.store_cart_id_seq OWNER TO capstone;
+
+--
+-- Name: store_cart_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: capstone
+--
+
+ALTER SEQUENCE public.store_cart_id_seq OWNED BY public.store_cart.id;
+
+
+--
+-- Name: store_cart_products; Type: TABLE; Schema: public; Owner: capstone
+--
+
+CREATE TABLE public.store_cart_products (
+    id integer NOT NULL,
+    cart_id integer NOT NULL,
+    product_id integer NOT NULL
+);
+
+
+ALTER TABLE public.store_cart_products OWNER TO capstone;
+
+--
+-- Name: store_cart_products_id_seq; Type: SEQUENCE; Schema: public; Owner: capstone
+--
+
+CREATE SEQUENCE public.store_cart_products_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.store_cart_products_id_seq OWNER TO capstone;
+
+--
+-- Name: store_cart_products_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: capstone
+--
+
+ALTER SEQUENCE public.store_cart_products_id_seq OWNED BY public.store_cart_products.id;
+
+
+--
+-- Name: store_category; Type: TABLE; Schema: public; Owner: capstone
+--
+
+CREATE TABLE public.store_category (
+    id integer NOT NULL,
+    name character varying(50) NOT NULL
+);
+
+
+ALTER TABLE public.store_category OWNER TO capstone;
+
+--
+-- Name: store_category_id_seq; Type: SEQUENCE; Schema: public; Owner: capstone
+--
+
+CREATE SEQUENCE public.store_category_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.store_category_id_seq OWNER TO capstone;
+
+--
+-- Name: store_category_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: capstone
+--
+
+ALTER SEQUENCE public.store_category_id_seq OWNED BY public.store_category.id;
+
+
+--
+-- Name: store_orderitem; Type: TABLE; Schema: public; Owner: capstone
+--
+
+CREATE TABLE public.store_orderitem (
+    id integer NOT NULL,
+    qty integer NOT NULL,
+    order_id integer NOT NULL,
+    product_id integer NOT NULL
+);
+
+
+ALTER TABLE public.store_orderitem OWNER TO capstone;
+
+--
+-- Name: store_orderitem_id_seq; Type: SEQUENCE; Schema: public; Owner: capstone
+--
+
+CREATE SEQUENCE public.store_orderitem_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.store_orderitem_id_seq OWNER TO capstone;
+
+--
+-- Name: store_orderitem_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: capstone
+--
+
+ALTER SEQUENCE public.store_orderitem_id_seq OWNED BY public.store_orderitem.id;
+
+
+--
+-- Name: store_orders; Type: TABLE; Schema: public; Owner: capstone
+--
+
+CREATE TABLE public.store_orders (
+    id integer NOT NULL,
+    total double precision NOT NULL,
+    payment_id character varying(50) NOT NULL,
+    order_id character varying(50) NOT NULL,
+    signature character varying(250) NOT NULL,
+    date_ordered timestamp with time zone NOT NULL,
+    user_id integer NOT NULL
+);
+
+
+ALTER TABLE public.store_orders OWNER TO capstone;
+
+--
+-- Name: store_orders_id_seq; Type: SEQUENCE; Schema: public; Owner: capstone
+--
+
+CREATE SEQUENCE public.store_orders_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.store_orders_id_seq OWNER TO capstone;
+
+--
+-- Name: store_orders_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: capstone
+--
+
+ALTER SEQUENCE public.store_orders_id_seq OWNED BY public.store_orders.id;
+
+
+--
+-- Name: store_product; Type: TABLE; Schema: public; Owner: capstone
+--
+
+CREATE TABLE public.store_product (
+    id integer NOT NULL,
+    title character varying(50) NOT NULL,
+    description text NOT NULL,
+    price numeric(20,2) NOT NULL,
+    stock integer NOT NULL,
+    image character varying(100) NOT NULL,
+    category_id integer NOT NULL
+);
+
+
+ALTER TABLE public.store_product OWNER TO capstone;
+
+--
+-- Name: store_product_id_seq; Type: SEQUENCE; Schema: public; Owner: capstone
+--
+
+CREATE SEQUENCE public.store_product_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.store_product_id_seq OWNER TO capstone;
+
+--
+-- Name: store_product_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: capstone
+--
+
+ALTER SEQUENCE public.store_product_id_seq OWNED BY public.store_product.id;
+
+
+--
+-- Name: store_product_tags; Type: TABLE; Schema: public; Owner: capstone
+--
+
+CREATE TABLE public.store_product_tags (
+    id integer NOT NULL,
+    product_id integer NOT NULL,
+    tag_id integer NOT NULL
+);
+
+
+ALTER TABLE public.store_product_tags OWNER TO capstone;
+
+--
+-- Name: store_product_tags_id_seq; Type: SEQUENCE; Schema: public; Owner: capstone
+--
+
+CREATE SEQUENCE public.store_product_tags_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.store_product_tags_id_seq OWNER TO capstone;
+
+--
+-- Name: store_product_tags_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: capstone
+--
+
+ALTER SEQUENCE public.store_product_tags_id_seq OWNED BY public.store_product_tags.id;
+
+
+--
+-- Name: store_rating; Type: TABLE; Schema: public; Owner: capstone
+--
+
+CREATE TABLE public.store_rating (
+    id integer NOT NULL,
+    rating integer NOT NULL,
+    comment character varying(300) NOT NULL,
+    product_id integer NOT NULL,
+    user_id integer NOT NULL,
+    CONSTRAINT store_rating_rating_check CHECK ((rating >= 0))
+);
+
+
+ALTER TABLE public.store_rating OWNER TO capstone;
+
+--
+-- Name: store_rating_id_seq; Type: SEQUENCE; Schema: public; Owner: capstone
+--
+
+CREATE SEQUENCE public.store_rating_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.store_rating_id_seq OWNER TO capstone;
+
+--
+-- Name: store_rating_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: capstone
+--
+
+ALTER SEQUENCE public.store_rating_id_seq OWNED BY public.store_rating.id;
+
+
+--
+-- Name: store_tag; Type: TABLE; Schema: public; Owner: capstone
+--
+
+CREATE TABLE public.store_tag (
+    id integer NOT NULL,
+    name character varying(30) NOT NULL
+);
+
+
+ALTER TABLE public.store_tag OWNER TO capstone;
+
+--
+-- Name: store_tag_id_seq; Type: SEQUENCE; Schema: public; Owner: capstone
+--
+
+CREATE SEQUENCE public.store_tag_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.store_tag_id_seq OWNER TO capstone;
+
+--
+-- Name: store_tag_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: capstone
+--
+
+ALTER SEQUENCE public.store_tag_id_seq OWNED BY public.store_tag.id;
+
+
+--
+-- Name: store_wishlist; Type: TABLE; Schema: public; Owner: capstone
+--
+
+CREATE TABLE public.store_wishlist (
+    id integer NOT NULL,
+    user_id integer NOT NULL
+);
+
+
+ALTER TABLE public.store_wishlist OWNER TO capstone;
+
+--
+-- Name: store_wishlist_id_seq; Type: SEQUENCE; Schema: public; Owner: capstone
+--
+
+CREATE SEQUENCE public.store_wishlist_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.store_wishlist_id_seq OWNER TO capstone;
+
+--
+-- Name: store_wishlist_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: capstone
+--
+
+ALTER SEQUENCE public.store_wishlist_id_seq OWNED BY public.store_wishlist.id;
+
+
+--
+-- Name: store_wishlist_products; Type: TABLE; Schema: public; Owner: capstone
+--
+
+CREATE TABLE public.store_wishlist_products (
+    id integer NOT NULL,
+    wishlist_id integer NOT NULL,
+    product_id integer NOT NULL
+);
+
+
+ALTER TABLE public.store_wishlist_products OWNER TO capstone;
+
+--
+-- Name: store_wishlist_products_id_seq; Type: SEQUENCE; Schema: public; Owner: capstone
+--
+
+CREATE SEQUENCE public.store_wishlist_products_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.store_wishlist_products_id_seq OWNER TO capstone;
+
+--
+-- Name: store_wishlist_products_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: capstone
+--
+
+ALTER SEQUENCE public.store_wishlist_products_id_seq OWNED BY public.store_wishlist_products.id;
+
+
+--
+-- Name: accounts_useraccount id; Type: DEFAULT; Schema: public; Owner: capstone
+--
+
+ALTER TABLE ONLY public.accounts_useraccount ALTER COLUMN id SET DEFAULT nextval('public.accounts_useraccount_id_seq'::regclass);
+
+
+--
+-- Name: accounts_useraccount_groups id; Type: DEFAULT; Schema: public; Owner: capstone
+--
+
+ALTER TABLE ONLY public.accounts_useraccount_groups ALTER COLUMN id SET DEFAULT nextval('public.accounts_useraccount_groups_id_seq'::regclass);
+
+
+--
+-- Name: accounts_useraccount_user_permissions id; Type: DEFAULT; Schema: public; Owner: capstone
+--
+
+ALTER TABLE ONLY public.accounts_useraccount_user_permissions ALTER COLUMN id SET DEFAULT nextval('public.accounts_useraccount_user_permissions_id_seq'::regclass);
+
+
+--
+-- Name: auth_group id; Type: DEFAULT; Schema: public; Owner: capstone
+--
+
+ALTER TABLE ONLY public.auth_group ALTER COLUMN id SET DEFAULT nextval('public.auth_group_id_seq'::regclass);
+
+
+--
+-- Name: auth_group_permissions id; Type: DEFAULT; Schema: public; Owner: capstone
+--
+
+ALTER TABLE ONLY public.auth_group_permissions ALTER COLUMN id SET DEFAULT nextval('public.auth_group_permissions_id_seq'::regclass);
+
+
+--
+-- Name: auth_permission id; Type: DEFAULT; Schema: public; Owner: capstone
+--
+
+ALTER TABLE ONLY public.auth_permission ALTER COLUMN id SET DEFAULT nextval('public.auth_permission_id_seq'::regclass);
+
+
+--
+-- Name: django_admin_log id; Type: DEFAULT; Schema: public; Owner: capstone
+--
+
+ALTER TABLE ONLY public.django_admin_log ALTER COLUMN id SET DEFAULT nextval('public.django_admin_log_id_seq'::regclass);
+
+
+--
+-- Name: django_content_type id; Type: DEFAULT; Schema: public; Owner: capstone
+--
+
+ALTER TABLE ONLY public.django_content_type ALTER COLUMN id SET DEFAULT nextval('public.django_content_type_id_seq'::regclass);
+
+
+--
+-- Name: django_migrations id; Type: DEFAULT; Schema: public; Owner: capstone
+--
+
+ALTER TABLE ONLY public.django_migrations ALTER COLUMN id SET DEFAULT nextval('public.django_migrations_id_seq'::regclass);
+
+
+--
+-- Name: store_cart id; Type: DEFAULT; Schema: public; Owner: capstone
+--
+
+ALTER TABLE ONLY public.store_cart ALTER COLUMN id SET DEFAULT nextval('public.store_cart_id_seq'::regclass);
+
+
+--
+-- Name: store_cart_products id; Type: DEFAULT; Schema: public; Owner: capstone
+--
+
+ALTER TABLE ONLY public.store_cart_products ALTER COLUMN id SET DEFAULT nextval('public.store_cart_products_id_seq'::regclass);
+
+
+--
+-- Name: store_category id; Type: DEFAULT; Schema: public; Owner: capstone
+--
+
+ALTER TABLE ONLY public.store_category ALTER COLUMN id SET DEFAULT nextval('public.store_category_id_seq'::regclass);
+
+
+--
+-- Name: store_orderitem id; Type: DEFAULT; Schema: public; Owner: capstone
+--
+
+ALTER TABLE ONLY public.store_orderitem ALTER COLUMN id SET DEFAULT nextval('public.store_orderitem_id_seq'::regclass);
+
+
+--
+-- Name: store_orders id; Type: DEFAULT; Schema: public; Owner: capstone
+--
+
+ALTER TABLE ONLY public.store_orders ALTER COLUMN id SET DEFAULT nextval('public.store_orders_id_seq'::regclass);
+
+
+--
+-- Name: store_product id; Type: DEFAULT; Schema: public; Owner: capstone
+--
+
+ALTER TABLE ONLY public.store_product ALTER COLUMN id SET DEFAULT nextval('public.store_product_id_seq'::regclass);
+
+
+--
+-- Name: store_product_tags id; Type: DEFAULT; Schema: public; Owner: capstone
+--
+
+ALTER TABLE ONLY public.store_product_tags ALTER COLUMN id SET DEFAULT nextval('public.store_product_tags_id_seq'::regclass);
+
+
+--
+-- Name: store_rating id; Type: DEFAULT; Schema: public; Owner: capstone
+--
+
+ALTER TABLE ONLY public.store_rating ALTER COLUMN id SET DEFAULT nextval('public.store_rating_id_seq'::regclass);
+
+
+--
+-- Name: store_tag id; Type: DEFAULT; Schema: public; Owner: capstone
+--
+
+ALTER TABLE ONLY public.store_tag ALTER COLUMN id SET DEFAULT nextval('public.store_tag_id_seq'::regclass);
+
+
+--
+-- Name: store_wishlist id; Type: DEFAULT; Schema: public; Owner: capstone
+--
+
+ALTER TABLE ONLY public.store_wishlist ALTER COLUMN id SET DEFAULT nextval('public.store_wishlist_id_seq'::regclass);
+
+
+--
+-- Name: store_wishlist_products id; Type: DEFAULT; Schema: public; Owner: capstone
+--
+
+ALTER TABLE ONLY public.store_wishlist_products ALTER COLUMN id SET DEFAULT nextval('public.store_wishlist_products_id_seq'::regclass);
+
+
+--
+-- Data for Name: accounts_useraccount; Type: TABLE DATA; Schema: public; Owner: capstone
+--
+
+COPY public.accounts_useraccount (id, password, last_login, is_superuser, email, username, first_name, last_name, phone, address, is_active, is_staff) FROM stdin;
+1	pbkdf2_sha256$150000$DbQLB5JwkrLm$vD7x8w9/xiNVx8QqSVdO70iHTRaxukvIbKEm5se0SkY=	2021-01-14 14:37:12.153298+05:30	t	admin@admin.com	admin	admin	admin	1234567890		t	t
+2	pbkdf2_sha256$150000$VLPfc5ZUFhyf$1Eh1ksOMs58AJaKQOAqbdIUdaesMs6ChzahjdKeJEOE=	\N	f	rakshit@yopmail.com	rakshit	rakshit	rakshit	1234567899	gujrat	t	f
+3	pbkdf2_sha256$150000$wwBF4gCdBLGt$HX8LLWTlUNqRwBviq8qYAJuouGc+HIs9VKb+s8i9A4M=	\N	f	vijay@yopmail.com	vijay	vijay	vijay	123456789	india	t	f
+4	pbkdf2_sha256$150000$olOg93oEnOPO$ug1Xwx9fv/WX0/W3XrS/pJGRm+0pXbHgB0DOgqulxpc=	\N	f	jatin@yopmail.com	jatin	jatin	jatin	12345678	india	t	f
+5	pbkdf2_sha256$150000$ZzzzDVJYgoz7$DpYAQd0uaJ3Kf1j/9gO+lcC2mdUT49yf+RCXg6szijs=	\N	f	ankit@yomail.com	ankit	ankit	ankit	123456789	india	f	f
+6	pbkdf2_sha256$150000$p2TfaJLLuZ0I$FYCwZJ2g46uXkLwlS/sJSxE//B5OEVcbHsIN9FwBpO8=	\N	f	ravi@yopmail.com	ravi	ravi	ravi	1234554321	india	t	f
+7	pbkdf2_sha256$150000$CLYfwOq5FldK$W0h0h/GJEcTsMtgmHpt/29LmP1n0NyX7UtzHBwIri80=	\N	f	raviraj@yopmail.com	raviraj	raviraj	raviraj	1234566511	india	t	f
+8	pbkdf2_sha256$150000$y3J322GWwhaI$qLgzdjgFpp+FRiC3YF7OQUW9Y4vs4RaRtePpwRhXzoY=	2021-01-14 17:48:47.41498+05:30	f	ajay@yopmail.com	ajay	ajay	kumar	1234567899	india	t	f
+9	pbkdf2_sha256$150000$CmODjGOzqVnJ$suRX/ouOtPJupRk2E07NfNKuWZUSDknBBTCMhGusT4E=	\N	f	okk@yopmail.com	okk	okk	okk	1234567890	india	t	f
+\.
+
+
+--
+-- Data for Name: accounts_useraccount_groups; Type: TABLE DATA; Schema: public; Owner: capstone
+--
+
+COPY public.accounts_useraccount_groups (id, useraccount_id, group_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: accounts_useraccount_user_permissions; Type: TABLE DATA; Schema: public; Owner: capstone
+--
+
+COPY public.accounts_useraccount_user_permissions (id, useraccount_id, permission_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: auth_group; Type: TABLE DATA; Schema: public; Owner: capstone
+--
+
+COPY public.auth_group (id, name) FROM stdin;
+\.
+
+
+--
+-- Data for Name: auth_group_permissions; Type: TABLE DATA; Schema: public; Owner: capstone
+--
+
+COPY public.auth_group_permissions (id, group_id, permission_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: auth_permission; Type: TABLE DATA; Schema: public; Owner: capstone
+--
+
+COPY public.auth_permission (id, name, content_type_id, codename) FROM stdin;
+1	Can add log entry	1	add_logentry
+2	Can change log entry	1	change_logentry
+3	Can delete log entry	1	delete_logentry
+4	Can view log entry	1	view_logentry
+5	Can add permission	2	add_permission
+6	Can change permission	2	change_permission
+7	Can delete permission	2	delete_permission
+8	Can view permission	2	view_permission
+9	Can add group	3	add_group
+10	Can change group	3	change_group
+11	Can delete group	3	delete_group
+12	Can view group	3	view_group
+13	Can add content type	4	add_contenttype
+14	Can change content type	4	change_contenttype
+15	Can delete content type	4	delete_contenttype
+16	Can view content type	4	view_contenttype
+17	Can add session	5	add_session
+18	Can change session	5	change_session
+19	Can delete session	5	delete_session
+20	Can view session	5	view_session
+21	Can add user account	6	add_useraccount
+22	Can change user account	6	change_useraccount
+23	Can delete user account	6	delete_useraccount
+24	Can view user account	6	view_useraccount
+25	Can add category	7	add_category
+26	Can change category	7	change_category
+27	Can delete category	7	delete_category
+28	Can view category	7	view_category
+29	Can add product	8	add_product
+30	Can change product	8	change_product
+31	Can delete product	8	delete_product
+32	Can view product	8	view_product
+33	Can add tag	9	add_tag
+34	Can change tag	9	change_tag
+35	Can delete tag	9	delete_tag
+36	Can view tag	9	view_tag
+37	Can add wishlist	10	add_wishlist
+38	Can change wishlist	10	change_wishlist
+39	Can delete wishlist	10	delete_wishlist
+40	Can view wishlist	10	view_wishlist
+41	Can add rating	11	add_rating
+42	Can change rating	11	change_rating
+43	Can delete rating	11	delete_rating
+44	Can view rating	11	view_rating
+45	Can add orders	12	add_orders
+46	Can change orders	12	change_orders
+47	Can delete orders	12	delete_orders
+48	Can view orders	12	view_orders
+49	Can add order item	13	add_orderitem
+50	Can change order item	13	change_orderitem
+51	Can delete order item	13	delete_orderitem
+52	Can view order item	13	view_orderitem
+53	Can add cart	14	add_cart
+54	Can change cart	14	change_cart
+55	Can delete cart	14	delete_cart
+56	Can view cart	14	view_cart
+\.
+
+
+--
+-- Data for Name: django_admin_log; Type: TABLE DATA; Schema: public; Owner: capstone
+--
+
+COPY public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) FROM stdin;
+1	2021-01-14 14:37:31.576434+05:30	1	cat1	1	[{"added": {}}]	7	1
+2	2021-01-14 14:37:36.229872+05:30	2	cat2	1	[{"added": {}}]	7	1
+3	2021-01-14 14:37:40.376917+05:30	3	ca3	1	[{"added": {}}]	7	1
+4	2021-01-14 14:37:47.542402+05:30	4	cat4	1	[{"added": {}}]	7	1
+5	2021-01-14 14:37:53.022088+05:30	5	cat5	1	[{"added": {}}]	7	1
+6	2021-01-14 14:38:19.611248+05:30	1	product1 : product1	1	[{"added": {}}]	8	1
+7	2021-01-14 14:38:33.262827+05:30	1	Rating object (1)	1	[{"added": {}}]	11	1
+8	2021-01-14 14:43:38.059842+05:30	1	woman	2	[{"changed": {"fields": ["name"]}}]	7	1
+9	2021-01-14 14:43:47.692287+05:30	2	man	2	[{"changed": {"fields": ["name"]}}]	7	1
+10	2021-01-14 14:43:57.423974+05:30	3	kid	2	[{"changed": {"fields": ["name"]}}]	7	1
+11	2021-01-14 14:44:07.974159+05:30	4	accessories	2	[{"changed": {"fields": ["name"]}}]	7	1
+12	2021-01-14 14:45:03.053754+05:30	5	cosmetic	2	[{"changed": {"fields": ["name"]}}]	7	1
+13	2021-01-14 14:45:08.992862+05:30	6	sale	1	[{"added": {}}]	7	1
+14	2021-01-14 14:50:00.89138+05:30	1	Women Green & Silver Yoke-Design Straight Kurta : product1	2	[{"changed": {"fields": ["title", "price", "image"]}}]	8	1
+15	2021-01-14 14:53:14.43623+05:30	2	Women Pink Embroidered Straight Kurta : Pink embroidered straight kurta with sequinned and lace detail, has a keyhole neck, three-quarter sleeves, straight hem, button closure, and side slits	1	[{"added": {}}]	8	1
+16	2021-01-14 14:53:48.401407+05:30	2	Rating object (2)	1	[{"added": {}}]	11	1
+17	2021-01-14 14:58:22.252831+05:30	3	Women Taupe & Red Printed Maxi Dress : Taupe, red and golden printed woven maxi dress, has a keyhole neck with button closure, long sleeves, and flared hem	1	[{"added": {}}]	8	1
+18	2021-01-14 14:58:48.825166+05:30	3	Rating object (3)	1	[{"added": {}}]	11	1
+19	2021-01-14 15:00:56.274037+05:30	4	Women Off-White & Blue Printed Straight Kurta : Off-white, blue and orange printed straight kurta, has a mandarin collar, three-quarter sleeves, straight hem, and side slits	1	[{"added": {}}]	8	1
+20	2021-01-14 15:01:18.635619+05:30	4	Rating object (4)	1	[{"added": {}}]	11	1
+21	2021-01-14 15:08:12.909192+05:30	5	Women Blue & Silver Printed Straight Kurta : Blue and Silver printed straight kurta, has a keyhole neck with button closure, three-quarter sleeves, straight hem, and side slits	1	[{"added": {}}]	8	1
+22	2021-01-14 15:08:35.546252+05:30	5	Rating object (5)	1	[{"added": {}}]	11	1
+23	2021-01-14 15:08:53.170369+05:30	1	Rating object (1)	3		11	1
+24	2021-01-14 15:09:28.111261+05:30	1	Women Green & Silver Yoke-Design Straight Kurta : Green and silver yoke-design straight kurta with embroidered detail, has a square neck, three-quarter sleeves, straight hem, and side slits	2	[{"changed": {"fields": ["description"]}}]	8	1
+25	2021-01-14 15:10:08.4309+05:30	6	Rating object (6)	1	[{"added": {}}]	11	1
+26	2021-01-14 15:11:44.858304+05:30	6	Women Off-White Embroidered Detail Straight Kurta : Off-white embroidered detail straight kurta, has a round neck, three-quarter sleeves, curved hem, and side slits	1	[{"added": {}}]	8	1
+27	2021-01-14 15:12:27.095533+05:30	7	Rating object (7)	1	[{"added": {}}]	11	1
+28	2021-01-14 15:14:00.591684+05:30	7	Women Blue & White Printed A-Line Kurta : Blue and white printed A-line kurta, has a mandarin collar, three-quarter sleeves, flared hem, and front slit	1	[{"added": {}}]	8	1
+29	2021-01-14 15:14:18.075844+05:30	8	Rating object (8)	1	[{"added": {}}]	11	1
+30	2021-01-14 15:16:05.629578+05:30	8	Women Off-White & Black Printed Straight Kurta : Off-white, black and red printed straight kurta, has a keyhole neck, three-quarter sleeves, straight hem, and side slits	1	[{"added": {}}]	8	1
+31	2021-01-14 15:16:22.685424+05:30	9	Rating object (9)	1	[{"added": {}}]	11	1
+32	2021-01-14 15:18:00.734723+05:30	9	Women Lavender & Golden Asymmetric Hemline Printed : Lavender, golden and maroon printed panelled A-line kurta, has a round neck, hook closure, three-quarter sleeves, asymmetric hem, and side slits	1	[{"added": {}}]	8	1
+33	2021-01-14 15:18:20.308784+05:30	10	Rating object (10)	1	[{"added": {}}]	11	1
+34	2021-01-14 15:20:23.093636+05:30	10	Tommy Hilfiger Men Green Solid Polo Collar T-shirt : Green solid T-shirt, has a polo collar, and short sleeves	1	[{"added": {}}]	8	1
+35	2021-01-14 15:20:42.106281+05:30	11	Rating object (11)	1	[{"added": {}}]	11	1
+36	2021-01-14 15:25:01.565445+05:30	11	The Body Shop Women British Rose Body Sustainable : Women British Rose Body Mist	1	[{"added": {}}]	8	1
+37	2021-01-14 15:25:19.009407+05:30	13	Rating object (13)	1	[{"added": {}}]	11	1
+38	2021-01-14 15:27:15.385397+05:30	12	Roadster Men Black Multi Function Analogue and Dig : Display: Analogue and Digital\r\nMovement: Quartz\r\nPower source: Battery\r\nDial style: Solid round stainless steel dial\r\nFeatures: Multi Function, Sto	1	[{"added": {}}]	8	1
+39	2021-01-14 15:27:36.172354+05:30	14	Rating object (14)	1	[{"added": {}}]	11	1
+40	2021-01-14 15:29:43.766253+05:30	13	GAP Boy's Navy Blue Logo Short Sleeve T-Shirt : Soft weave,Short sleeves,Crew neck,Logo at front	1	[{"added": {}}]	8	1
+41	2021-01-14 15:30:06.94377+05:30	15	Rating object (15)	1	[{"added": {}}]	11	1
+42	2021-01-14 15:31:46.767486+05:30	14	Puma Men Olive Green Solid Rebel Full Zip FL Hoody : Product design details\r\nOlive green solid sweatshirt\r\nHas a hood\r\nLong sleeves\r\nRegular fit\r\nKangaroo pocket\r\nRib cuffs and hem\r\nPUMA Wordmark and 	1	[{"added": {}}]	8	1
+43	2021-01-14 15:32:14.483377+05:30	16	Rating object (16)	1	[{"added": {}}]	11	1
+44	2021-01-14 15:36:46.448814+05:30	15	PERFKT-U Men Navy Blue Solid Insulator Padded Jac : Navy Blue solid jacket, has a mock collar, 2 pockets, zip closure, long sleeves, straight hem, and synthetic lining	1	[{"added": {}}]	8	1
+45	2021-01-14 15:37:01.986911+05:30	17	Rating object (17)	1	[{"added": {}}]	11	1
+46	2021-01-14 15:38:57.294151+05:30	16	Roadster Men Black Slim Fit Mid-Rise Clean Look St : Black dark wash 5-pocket mid-rise jeans, clean look with no fade, has a button and zip closure, waistband with belt loops	1	[{"added": {}}]	8	1
+47	2021-01-14 15:39:19.286664+05:30	18	Rating object (18)	1	[{"added": {}}]	11	1
+48	2021-01-14 15:42:07.725021+05:30	17	Moda Rapido Men Maroon Printed Round Neck T-shirt : Maroon and black printed T-shirt, has a round neck, long sleeves	1	[{"added": {}}]	8	1
+49	2021-01-14 15:42:40.1038+05:30	19	Rating object (19)	1	[{"added": {}}]	11	1
+50	2021-01-14 15:44:18.577596+05:30	18	Dennis Lingo Men Pink Slim Fit Solid Casual Shirt : Pink solid casual shirt, has a spread collar, long sleeves, curved hem, one patch pocket	1	[{"added": {}}]	8	1
+51	2021-01-14 15:44:37.218098+05:30	20	Rating object (20)	1	[{"added": {}}]	11	1
+52	2021-01-14 15:52:01.998948+05:30	19	Bitiya by Bhama Off-White & Pink Ready to Wear Le : Off-white and pink ready to wear lehenga choli\r\nOff-white and pink ready to wear solid blouse, has shirt collar, three-quarter sleeves\r\nPink and gol	1	[{"added": {}}]	8	1
+53	2021-01-14 15:52:31.393555+05:30	21	Rating object (21)	1	[{"added": {}}]	11	1
+54	2021-01-14 15:52:53.878882+05:30	19	Bitiya by Bhama Off-White & Pink Ready to Wear Le : Off-white and pink ready to wear lehenga choli\r\nOff-white and pink ready to wear solid blouse, has shirt collar, three-quarter sleeves\r\nPink and gol	2	[{"changed": {"fields": ["category"]}}]	8	1
+55	2021-01-15 09:29:18.335325+05:30	20	M.A.C Powder Kiss Lipstick- Velvet Punch : M.A.C Powder Kiss Lipstick	1	[{"added": {}}]	8	1
+56	2021-01-15 09:29:47.294726+05:30	24	Rating object (24)	1	[{"added": {}}]	11	1
+57	2021-01-15 09:31:25.758546+05:30	21	Calvin Klein Unisex One Eau De Toilette : Eau De Toilette Gift set\r\nOne EDT and One Travel Spray EDT	1	[{"added": {}}]	8	1
+58	2021-01-15 09:33:01.647747+05:30	22	MyGlamm Lit Creamy Matte Lipstick : MyGlamm Lit Creamy Matte Lipstick - Sangria\r\n\r\nSangria is a beautiful wine shade that enamours all skin tones. It is also PETA Approved cruelty-free and vegan.Play 	1	[{"added": {}}]	8	1
+59	2021-01-15 09:34:48.152755+05:30	23	Maybelline New York Washable Volume : Washable Volume Express Colossal Mascara - Black	1	[{"added": {}}]	8	1
+60	2021-01-15 09:36:36.320709+05:30	24	Denver Men Set of Imperial Eua De : Eua De Parfum and Deodorant Body Spray Gift Pack	1	[{"added": {}}]	8	1
+61	2021-01-15 09:37:00.797406+05:30	25	Rating object (25)	1	[{"added": {}}]	11	1
+62	2021-01-15 09:37:11.311656+05:30	26	Rating object (26)	1	[{"added": {}}]	11	1
+63	2021-01-15 09:37:16.809329+05:30	26	Rating object (26)	2	[{"changed": {"fields": ["comment"]}}]	11	1
+64	2021-01-15 09:37:31.171646+05:30	27	Rating object (27)	1	[{"added": {}}]	11	1
+65	2021-01-15 09:37:53.071086+05:30	28	Rating object (28)	1	[{"added": {}}]	11	1
+66	2021-01-15 09:37:57.995968+05:30	28	Rating object (28)	2	[{"changed": {"fields": ["rating"]}}]	11	1
+67	2021-01-15 09:39:47.83947+05:30	25	Bene Kleed : Off-White and blue printed casual shirt, has a spread collar, long sleeves, curved hem,	1	[{"added": {}}]	8	1
+68	2021-01-15 09:40:11.953126+05:30	29	Rating object (29)	1	[{"added": {}}]	11	1
+69	2021-01-15 09:42:27.436272+05:30	26	Fossil The Carlyle Smartwatch : Compatibility: Android OS 6.0+ (EXCLUDING GO EDITION), iOS 10.0+\r\nProcessor name: Qualcomm Snapdragon Wear 3100\r\nRam: 512 MB\r\nDisplay type: AMOLED\r\nCase Size: 41mm\r\nSen	1	[{"added": {}}]	8	1
+70	2021-01-15 09:44:18.176499+05:30	27	NOISE Unisex Jet Black Shots BEAT : Features:\r\nColor: Jet Black\r\nConnectivity: True wireless\r\nMicrophone: Yes\r\nBalanced Sound: Enjoy clear balanced sound on the 9mm speaker drivers of the Noise Shots 	1	[{"added": {}}]	8	1
+71	2021-01-15 09:47:00.812634+05:30	28	Fastrack Men Black Analogue Watch : Display: Analogue\r\nMovement: Quartz\r\nPower source: Battery\r\nDial style: Printed round stainless steel dial\r\nFeatures: Reset Time\r\nStrap style: Steel Toned bracelet 	1	[{"added": {}}]	8	1
+72	2021-01-15 09:48:33.336454+05:30	29	boAt Rockerz LuciousWireless Headphone : boAt Rockerz 450 is an on-ear wireless headset that has been ergonomically designed to meet the needs of music lovers.\r\nThe headphones come equipped with Bluet	1	[{"added": {}}]	8	1
+73	2021-01-15 09:50:08.508779+05:30	30	Fossil Men Grey Chronograph Watch : Display: Analogue\r\nMovement: Quartz\r\nPower source: Battery\r\nDial style: Solid round stainless steel dial\r\nFeatures: Reset Time, Chronograph, Date Aperture\r\nStrap st	1	[{"added": {}}]	8	1
+74	2021-01-15 09:50:28.490423+05:30	30	Rating object (30)	1	[{"added": {}}]	11	1
+75	2021-01-15 09:50:35.208686+05:30	30	Rating object (30)	2	[{"changed": {"fields": ["comment"]}}]	11	1
+76	2021-01-15 09:50:49.193376+05:30	31	Rating object (31)	1	[{"added": {}}]	11	1
+77	2021-01-15 09:51:06.010928+05:30	32	Rating object (32)	1	[{"added": {}}]	11	1
+78	2021-01-15 09:51:20.796701+05:30	33	Rating object (33)	1	[{"added": {}}]	11	1
+79	2021-01-15 09:51:34.634014+05:30	34	Rating object (34)	1	[{"added": {}}]	11	1
+80	2021-01-15 09:52:28.138306+05:30	35	Rating object (35)	1	[{"added": {}}]	11	1
+81	2021-01-15 09:53:47.003842+05:30	28	Fastrack Men Black Analogue Watch : Display: Analogue\r\nMovement: Quartz\r\nPower source: Battery\r\nDial style: Printed round stainless steel dial\r\nFeatures: Reset Time\r\nStrap style: Steel Toned bracelet 	3		8	1
+82	2021-01-15 09:55:47.655941+05:30	31	pTron Unisex Bassbuds Wireless Headphone : Features\r\nEffortlessly manage audio playback & calls with the multi-function button panel and microphone on each earbud. The earbuds can even be used alone l	1	[{"added": {}}]	8	1
+83	2021-01-15 09:56:05.34823+05:30	36	Rating object (36)	1	[{"added": {}}]	11	1
+84	2021-01-15 09:58:10.887056+05:30	32	Loocust Boys Red T-shir : This clothing set consists of t-shirt and pyjamas\r\nRed printed disney spiderman printed t-shirt, has a round neck, long sleeves\r\nGrey printed pyjamas, has a drawstring closur	1	[{"added": {}}]	8	1
+85	2021-01-15 09:58:30.328778+05:30	37	Rating object (37)	1	[{"added": {}}]	11	1
+\.
+
+
+--
+-- Data for Name: django_content_type; Type: TABLE DATA; Schema: public; Owner: capstone
+--
+
+COPY public.django_content_type (id, app_label, model) FROM stdin;
+1	admin	logentry
+2	auth	permission
+3	auth	group
+4	contenttypes	contenttype
+5	sessions	session
+6	accounts	useraccount
+7	store	category
+8	store	product
+9	store	tag
+10	store	wishlist
+11	store	rating
+12	store	orders
+13	store	orderitem
+14	store	cart
+\.
+
+
+--
+-- Data for Name: django_migrations; Type: TABLE DATA; Schema: public; Owner: capstone
+--
+
+COPY public.django_migrations (id, app, name, applied) FROM stdin;
+1	contenttypes	0001_initial	2021-01-14 14:35:41.215313+05:30
+2	contenttypes	0002_remove_content_type_name	2021-01-14 14:35:41.240671+05:30
+3	auth	0001_initial	2021-01-14 14:35:41.384301+05:30
+4	auth	0002_alter_permission_name_max_length	2021-01-14 14:35:41.568156+05:30
+5	auth	0003_alter_user_email_max_length	2021-01-14 14:35:41.591568+05:30
+6	auth	0004_alter_user_username_opts	2021-01-14 14:35:41.609536+05:30
+7	auth	0005_alter_user_last_login_null	2021-01-14 14:35:41.631125+05:30
+8	auth	0006_require_contenttypes_0002	2021-01-14 14:35:41.645448+05:30
+9	auth	0007_alter_validators_add_error_messages	2021-01-14 14:35:41.667347+05:30
+10	auth	0008_alter_user_username_max_length	2021-01-14 14:35:41.684677+05:30
+11	auth	0009_alter_user_last_name_max_length	2021-01-14 14:35:41.705932+05:30
+12	auth	0010_alter_group_name_max_length	2021-01-14 14:35:41.729392+05:30
+13	auth	0011_update_proxy_permissions	2021-01-14 14:35:41.746686+05:30
+14	accounts	0001_initial	2021-01-14 14:35:41.907583+05:30
+15	admin	0001_initial	2021-01-14 14:35:42.191527+05:30
+16	admin	0002_logentry_remove_auto_add	2021-01-14 14:35:42.271605+05:30
+17	admin	0003_logentry_add_action_flag_choices	2021-01-14 14:35:42.294916+05:30
+18	sessions	0001_initial	2021-01-14 14:35:42.365538+05:30
+19	store	0001_initial	2021-01-14 14:35:42.900498+05:30
+20	store	0002_auto_20210113_0758	2021-01-14 14:35:43.438872+05:30
+21	accounts	0002_auto_20210114_1239	2021-01-14 18:10:11.993555+05:30
+\.
+
+
+--
+-- Data for Name: django_session; Type: TABLE DATA; Schema: public; Owner: capstone
+--
+
+COPY public.django_session (session_key, session_data, expire_date) FROM stdin;
+rdvus0e4mvpto5gsi5bm12zqyv7nw1s6	ZTZjNjdjNzdjOTM0ZmJlNmUwN2ZkZjE0MzI4N2Q0YjM5NTRmOGFlNDp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiIzZTc1MjE5NzBkYTZjZDc2ZmJhN2QyNGVlY2ZjZmEwNTEzYWJjMzcxIn0=	2021-01-28 14:37:12.169814+05:30
+\.
+
+
+--
+-- Data for Name: store_cart; Type: TABLE DATA; Schema: public; Owner: capstone
+--
+
+COPY public.store_cart (id, user_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: store_cart_products; Type: TABLE DATA; Schema: public; Owner: capstone
+--
+
+COPY public.store_cart_products (id, cart_id, product_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: store_category; Type: TABLE DATA; Schema: public; Owner: capstone
+--
+
+COPY public.store_category (id, name) FROM stdin;
+1	woman
+2	man
+3	kid
+4	accessories
+5	cosmetic
+6	sale
+\.
+
+
+--
+-- Data for Name: store_orderitem; Type: TABLE DATA; Schema: public; Owner: capstone
+--
+
+COPY public.store_orderitem (id, qty, order_id, product_id) FROM stdin;
+1	1	1	10
+2	1	2	12
+3	2	3	2
+4	1	4	12
+5	1	5	12
+6	1	6	12
+7	1	7	2
+8	1	8	12
+9	1	9	12
+10	1	10	12
+11	1	11	2
+12	1	12	2
+13	1	12	12
+14	1	13	12
+15	1	13	2
+16	1	14	2
+17	2	15	2
+18	2	16	2
+19	4	17	2
+20	1	18	2
+21	1	19	10
+22	1	20	12
+23	1	20	10
+24	1	21	12
+25	1	22	4
+26	1	23	26
+27	1	24	2
+28	1	25	2
+29	1	26	3
+\.
+
+
+--
+-- Data for Name: store_orders; Type: TABLE DATA; Schema: public; Owner: capstone
+--
+
+COPY public.store_orders (id, total, payment_id, order_id, signature, date_ordered, user_id) FROM stdin;
+1	1679	pay_GP8xsUKOzdje40	order_GP8xmjaXzTExgY	980bee24d05edce9b828ae6907e75f32ce11962a4df9f810505d3b72f35737a4	2021-01-14 15:21:04.78124+05:30	7
+2	1399	pay_GP9NAmOaLCaUee	order_GP9N7BFjNDvN53	9b3bdb6b6a2160a3917bffc6bb56fb1149ebe4f028a623ca87fe15bdd158d8db	2021-01-14 15:45:01.599018+05:30	7
+3	2398	pay_GP9ZcUTRIm4rNx	order_GP9ZVaMVS6rLaq	f1b8ec7a59c3f7d38172e32ac9d1cea98fb48790cadb0e0c8f9cc83ec9ae2f28	2021-01-14 15:56:49.335111+05:30	8
+4	1399	pay_GP9w7mdVpTPSC9	order_GP9w4nz39P0R9R	48d615e18b58964405e0c01fb3ee0698a102a724110019d482c29fe555b8728d	2021-01-14 16:18:08.611038+05:30	8
+5	1399	pay_GP9wQpDUAf2Tx4	order_GP9wNv8KXmjDqO	492012bfe17ae8f6cf8bc642e75e65b1a1a99e4e2192cdb2accf1d6ae4c70b22	2021-01-14 16:18:25.4056+05:30	8
+6	1399	pay_GP9wkmTTASIlsV	order_GP9whi05xkXiyx	5bfe84ada4bad8a0e681fbefe00b533c4a025f1b773945734a2e39eb67bf6456	2021-01-14 16:18:43.233978+05:30	8
+7	1199	pay_GP9xOCMggdfLrV	order_GP9xL6y1ZhFXkc	7ee0609e9ee383df453b818adec73aef7e4d01964eb0c4cff2cbf924797b250f	2021-01-14 16:19:19.176607+05:30	8
+8	1399	pay_GP9yA5VqsY4Kjw	order_GP9y7KGT4NfXAn	4d49c67e3f5ab02887b3973aab524a389bb03ee1578e4048ad1388c21a9f958e	2021-01-14 16:20:02.919572+05:30	8
+9	1399	pay_GPBVeZqkQnjqN8	order_GPBVbnbMg8y5wP	3770effaaf32f1a00fadcf1ce277cac670705d97148a9a4e52bad5915b107221	2021-01-14 17:50:26.953317+05:30	8
+10	1399	pay_GPBYpAn22swDgO	order_GPBYlunESQt7iI	b060b47b8c8dc379266581bec3869c8adcdf79ae67af4e1c858428b4a46200ca	2021-01-14 17:53:27.049656+05:30	8
+11	1199	pay_GPC2xlA3lCFDRX	order_GPC28u9OWgaftO	980e20b92647164fbeb7208a38a0d773abcb23f94f39cc986826d8f79e4d013d	2021-01-14 18:21:59.692221+05:30	4
+12	2598	pay_GPC55MouRmBGAj	order_GPC512gvMEcf3B	baf0773e4afb880b59b35536683a9d507ea35ebf14ad262a7f3f1a887f9c1f56	2021-01-14 18:24:00.780967+05:30	4
+13	2598	pay_GPCel6sLlRmyBX	order_GPCegOE0BDMlkt	01edcc50a22c78ae12eb2a69e0d8b8c1216728ed6c6a0114a15de694fc70f369	2021-01-14 18:57:46.82938+05:30	4
+14	1199	pay_GPCfiQL2ViWTc2	order_GPCfe6OKVEVoVD	6dc1ce78e432a8dd3c0df949f971cf63853553e47917e692b5639f83791a917f	2021-01-14 18:58:41.937662+05:30	4
+15	2398	pay_GPCm9nvA13mpl4	order_GPCm607bqT8cL9	6faa5370c44e57abd6373d41a68880569ac64bc6ad3dd983e1162055763b16ff	2021-01-14 19:04:47.671981+05:30	4
+16	2398	pay_GPCoP4QJKSsrIz	order_GPCoIULxGVFnAU	1613e70da732adaa2e424aa577ee61e2109b7f4f82c26b4c99975c191998eb07	2021-01-14 19:06:55.583931+05:30	4
+17	4796	pay_GPCrv9mblBolmM	order_GPCrqsl4lEjJFd	0d92d84b4a3df53142e513056dc773c73cacc9815d172252852c7e74086c3c5d	2021-01-14 19:10:14.557396+05:30	8
+18	1199	pay_GPCtHmRIXpdT9o	order_GPCtCT9YKTOMa6	67c32ebb027e5b6acfbbc708296cec8fd4607cd6bcda563b7e3d17cf31cb040e	2021-01-14 19:11:31.593567+05:30	8
+19	1679	pay_GPCxIrjFfiXWnK	order_GPCxF0S5Th5Ihr	989fb57b20d0b8b9648f4fb9ef665e90024734fb6d5a9914d35e1e0c5489d6e4	2021-01-14 19:15:20.634548+05:30	8
+20	3078	pay_GPD64fMFcUp2L6	order_GPD60z3fEzy5iN	59a9761922ef8e15e0f4532e50e6b68ac112de003193bea8c894d572dd1992e0	2021-01-14 19:23:38.411653+05:30	8
+21	1399	pay_GPD7hFUTc9yb4y	order_GPD7bkBq5gGODM	1ef536532f32d45b8f0edd8ca897395949bae377e421277616fd7d7189a10c18	2021-01-14 19:25:56.440278+05:30	8
+22	899	pay_GPRL26hhIIYpe8	order_GPRKvRcMbTdHUd	b3b60aa7d051e4b698b22f13960cffed5573c7935b5343545f70b5f8a85ff525	2021-01-15 09:19:29.194772+05:30	9
+23	2200	pay_GPS7aOl6w1o1lh	order_GPS7XIB49ryhwq	33fb363d87b2e34c7f08e79db14df3a343fa677ab96cab331fe33e17469abf23	2021-01-15 10:05:26.825375+05:30	9
+24	1199	pay_GPSHE1MhZ8HJQe	order_GPSH918S6JzgP2	17611acab57850d878869db4a4a3b75e7ba1316f852da7cc32fcff63732a0c34	2021-01-15 10:14:37.90896+05:30	9
+25	1199	pay_GPSJU6sxXBYsWU	order_GPSIdn79aSA6uW	56035ef5cf94f8492639f4708b95a5c530d6d1bb1ae3b0f0844e2686e5c9eb15	2021-01-15 10:17:23.222432+05:30	9
+26	2740	pay_GPSLp0GqM3CstU	order_GPSLcXMRaTyoKM	7057c2495e0c0c5d7962c812fc616092de3461c091f3c4451ee4dba1818fc9f6	2021-01-15 10:18:56.069867+05:30	9
+\.
+
+
+--
+-- Data for Name: store_product; Type: TABLE DATA; Schema: public; Owner: capstone
+--
+
+COPY public.store_product (id, title, description, price, stock, image, category_id) FROM stdin;
+2	Women Pink Embroidered Straight Kurta	Pink embroidered straight kurta with sequinned and lace detail, has a keyhole neck, three-quarter sleeves, straight hem, button closure, and side slits	1199.00	1000	ezgif.com-gif-maker.jpg	1
+3	Women Taupe & Red Printed Maxi Dress	Taupe, red and golden printed woven maxi dress, has a keyhole neck with button closure, long sleeves, and flared hem	2740.00	1000	g3.jpg	1
+4	Women Off-White & Blue Printed Straight Kurta	Off-white, blue and orange printed straight kurta, has a mandarin collar, three-quarter sleeves, straight hem, and side slits	899.00	10000	g4.jpg	1
+5	Women Blue & Silver Printed Straight Kurta	Blue and Silver printed straight kurta, has a keyhole neck with button closure, three-quarter sleeves, straight hem, and side slits	1139.00	1234	g5.jpg	1
+1	Women Green & Silver Yoke-Design Straight Kurta	Green and silver yoke-design straight kurta with embroidered detail, has a square neck, three-quarter sleeves, straight hem, and side slits	899.00	1000	g1.jpg	1
+6	Women Off-White Embroidered Detail Straight Kurta	Off-white embroidered detail straight kurta, has a round neck, three-quarter sleeves, curved hem, and side slits	1079.00	100	g6.jpg	1
+7	Women Blue & White Printed A-Line Kurta	Blue and white printed A-line kurta, has a mandarin collar, three-quarter sleeves, flared hem, and front slit	1499.00	555	g7.jpg	1
+8	Women Off-White & Black Printed Straight Kurta	Off-white, black and red printed straight kurta, has a keyhole neck, three-quarter sleeves, straight hem, and side slits	849.00	1000	g8.jpg	1
+9	Women Lavender & Golden Asymmetric Hemline Printed	Lavender, golden and maroon printed panelled A-line kurta, has a round neck, hook closure, three-quarter sleeves, asymmetric hem, and side slits	1099.00	1000	g9.jpg	1
+10	Tommy Hilfiger Men Green Solid Polo Collar T-shirt	Green solid T-shirt, has a polo collar, and short sleeves	1679.00	600	m1.jpg	2
+11	The Body Shop Women British Rose Body Sustainable	Women British Rose Body Mist	1295.00	555	c1.jpg	5
+12	Roadster Men Black Multi Function Analogue and Dig	Display: Analogue and Digital\r\nMovement: Quartz\r\nPower source: Battery\r\nDial style: Solid round stainless steel dial\r\nFeatures: Multi Function, Stopwatch, Chronograph\r\nStrap style: Black regular, silicon strap with a tang closure\r\nWater resistance: Water Resistant\r\nComes in a signature Roadster case	1399.00	500	a1.jpg	4
+13	GAP Boy's Navy Blue Logo Short Sleeve T-Shirt	Soft weave,Short sleeves,Crew neck,Logo at front	599.00	599	k1.jpg	3
+14	Puma Men Olive Green Solid Rebel Full Zip FL Hoody	Product design details\r\nOlive green solid sweatshirt\r\nHas a hood\r\nLong sleeves\r\nRegular fit\r\nKangaroo pocket\r\nRib cuffs and hem\r\nPUMA Wordmark and Formstrips at left chest\r\nRebel branding at right sleeve	2399.00	500	s1.jpg	6
+15	PERFKT-U Men Navy Blue Solid Insulator Padded Jac	Navy Blue solid jacket, has a mock collar, 2 pockets, zip closure, long sleeves, straight hem, and synthetic lining	1166.00	66	m2.jpg	2
+16	Roadster Men Black Slim Fit Mid-Rise Clean Look St	Black dark wash 5-pocket mid-rise jeans, clean look with no fade, has a button and zip closure, waistband with belt loops	1049.00	700	m3.jpg	2
+17	Moda Rapido Men Maroon Printed Round Neck T-shirt	Maroon and black printed T-shirt, has a round neck, long sleeves	400.00	111	m4.jpg	2
+18	Dennis Lingo Men Pink Slim Fit Solid Casual Shirt	Pink solid casual shirt, has a spread collar, long sleeves, curved hem, one patch pocket	591.00	9000	m5.jpg	2
+19	Bitiya by Bhama Off-White & Pink Ready to Wear Le	Off-white and pink ready to wear lehenga choli\r\nOff-white and pink ready to wear solid blouse, has shirt collar, three-quarter sleeves\r\nPink and gold-coloured ready to wear lehenga, flared hem	987.00	9000	k2.jpg	3
+20	M.A.C Powder Kiss Lipstick- Velvet Punch	M.A.C Powder Kiss Lipstick	1700.00	999	c2.jpg	5
+21	Calvin Klein Unisex One Eau De Toilette	Eau De Toilette Gift set\r\nOne EDT and One Travel Spray EDT	1000.00	1000	c3.jpg	5
+22	MyGlamm Lit Creamy Matte Lipstick	MyGlamm Lit Creamy Matte Lipstick - Sangria\r\n\r\nSangria is a beautiful wine shade that enamours all skin tones. It is also PETA Approved cruelty-free and vegan.Play up those pouts with hues for every mood. With the LIT Creamy Matte Lipsticks by MyGlamm, we've got the best of both worlds a mad matte finish in an oh-so-creamy texture! You also get long-staying power and intense colour payoff - what else could a girl ask for? The controlled slimstick design ensures perfect precision with every swipe of colour - no smudges!	595.00	1222	c4.jpg	5
+23	Maybelline New York Washable Volume	Washable Volume Express Colossal Mascara - Black	399.00	999	c5.jpg	5
+24	Denver Men Set of Imperial Eua De	Eua De Parfum and Deodorant Body Spray Gift Pack	420.00	1000	c6.jpg	5
+25	Bene Kleed	Off-White and blue printed casual shirt, has a spread collar, long sleeves, curved hem,	713.00	1000	m6.jpg	2
+26	Fossil The Carlyle Smartwatch	Compatibility: Android OS 6.0+ (EXCLUDING GO EDITION), iOS 10.0+\r\nProcessor name: Qualcomm Snapdragon Wear 3100\r\nRam: 512 MB\r\nDisplay type: AMOLED\r\nCase Size: 41mm\r\nSensor: Accelerometer,\r\nAltimeter, Ambient Light, Gyroscope, Heart Rate, Microphone, NFC, Untethered GPS\r\nOther watch functions: Heart Rate Tracking / GPS / Google Pay /\r\nSwimproof / Notifications / Personalize Your Dial / Control Your Music / Interchangeable Watch Band / Built In Fitness Tracker\r\nSmart Assistant: Simple\r\ntouch or voice command\r\nBluetooth version: 4.2 Low Energy\r\nMicrophone: Built-in microphone\r\nWater resistance: 5 ATM\r\nWarranty: 2-year warranty against manufacturing defects	2200.00	1000	a2.jpg	4
+27	NOISE Unisex Jet Black Shots BEAT	Features:\r\nColor: Jet Black\r\nConnectivity: True wireless\r\nMicrophone: Yes\r\nBalanced Sound: Enjoy clear balanced sound on the 9mm speaker drivers of the Noise Shots BEAT.\r\nPortable Music Every Time:Carry your music anywhere in the sleek and compact charging case.\r\nBluetooth v5.0: Equipped with Bluetooth v5.0, the Noise Shots BEAT Truly Wireless Earphones ensures lag-free conversations with no call drops up within a 10-meter radius\r\nWater Resistant: An IPX5 sweatproof rating ensures that the Noise Shots BEAT is resistant to sweat and light rain.	1999.00	999	a3.jpg	4
+29	boAt Rockerz LuciousWireless Headphone	boAt Rockerz 450 is an on-ear wireless headset that has been ergonomically designed to meet the needs of music lovers.\r\nThe headphones come equipped with Bluetooth for instant wireless connectivity.\r\nIts powerful 300mAh battery provides a playtime of up to 8 hours for an extended audio bliss.\r\nIts 40mm dynamic drivers help supply immersive musical experience to the user with immersive sound.\r\nThe user can utilize the headset via dual connectivity in the form of Bluetooth and AUX.\r\nThe ergonomically styled on-ear headphone is equipped with adjustable comfortable earcups to provide that ultimate comfortable listening time\r\nBrand customer support Details\r\n022-4946-1882 / 91-22-4946-1882\r\ninfo@imaginemarketingindia.com\r\nsupport.boat-lifestyle.com	1499.00	1000	a5.jpg	4
+30	Fossil Men Grey Chronograph Watch	Display: Analogue\r\nMovement: Quartz\r\nPower source: Battery\r\nDial style: Solid round stainless steel dial\r\nFeatures: Reset Time, Chronograph, Date Aperture\r\nStrap style: Gunmetal Toned bracelet style, stainless steel strap with a foldover closure\r\nWater resistance: 50 m\r\nWarranty: 2 years\r\nWarranty provided by brand/manufacturer\r\nComes in a signature Fossil case\r\nDisclaimer: The box may vary in design from the one shown in the images	3000.00	999	a6.jpg	4
+31	pTron Unisex Bassbuds Wireless Headphone	Features\r\nEffortlessly manage audio playback & calls with the multi-function button panel and microphone on each earbud. The earbuds can even be used alone like a Bluetooth headset. Simply take the earbuds out of the charging case and they will automatically connect to your phone (after being paired the first time).\r\nTrue Wireless Stereo Earbuds with Mic\r\nBluetooth 5.0 Wireless Technology for Seamless Experience\r\nQuick Pairing & 10M Wireless Range	999.00	1111	a6_9TjxpZY.jpg	4
+32	Loocust Boys Red T-shir	This clothing set consists of t-shirt and pyjamas\r\nRed printed disney spiderman printed t-shirt, has a round neck, long sleeves\r\nGrey printed pyjamas, has a drawstring closure	499.00	999	k2_UwUrsYY.jpg	3
+\.
+
+
+--
+-- Data for Name: store_product_tags; Type: TABLE DATA; Schema: public; Owner: capstone
+--
+
+COPY public.store_product_tags (id, product_id, tag_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: store_rating; Type: TABLE DATA; Schema: public; Owner: capstone
+--
+
+COPY public.store_rating (id, rating, comment, product_id, user_id) FROM stdin;
+2	5	varry good product	2	2
+3	3	good product	3	2
+4	4	not bad	4	2
+5	4	not bad	5	3
+6	1	bad product	1	2
+7	5	vary good product	6	4
+8	5	vary good product	7	6
+9	5	good product	8	7
+10	5	vary good product	9	4
+11	5	good product	10	5
+12	5	varry good product	10	7
+13	5	good product	11	4
+14	5	good Quality watch	12	2
+15	5	varry good product	13	4
+16	5	good product	14	4
+17	4	good product	15	4
+18	4	good product	16	5
+19	4	good product	17	6
+20	5	product	18	5
+21	5	good	19	4
+22	5	good product	2	8
+23	4	good product	4	9
+24	5	good product	20	7
+25	4	good product	24	3
+26	5	not bad	23	5
+27	5	good brand	22	7
+28	5	top quality product	21	9
+29	5	good product	25	7
+30	4	good product	30	4
+31	4	good product	29	6
+32	4	good product	27	3
+33	5	good product	26	8
+34	5	good product	25	9
+35	5	good product	27	5
+36	5	not bad	31	4
+37	4	good tshirt	32	8
+38	5	good product	3	9
+\.
+
+
+--
+-- Data for Name: store_tag; Type: TABLE DATA; Schema: public; Owner: capstone
+--
+
+COPY public.store_tag (id, name) FROM stdin;
+\.
+
+
+--
+-- Data for Name: store_wishlist; Type: TABLE DATA; Schema: public; Owner: capstone
+--
+
+COPY public.store_wishlist (id, user_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: store_wishlist_products; Type: TABLE DATA; Schema: public; Owner: capstone
+--
+
+COPY public.store_wishlist_products (id, wishlist_id, product_id) FROM stdin;
+\.
+
+
+--
+-- Name: accounts_useraccount_groups_id_seq; Type: SEQUENCE SET; Schema: public; Owner: capstone
+--
+
+SELECT pg_catalog.setval('public.accounts_useraccount_groups_id_seq', 1, false);
+
+
+--
+-- Name: accounts_useraccount_id_seq; Type: SEQUENCE SET; Schema: public; Owner: capstone
+--
+
+SELECT pg_catalog.setval('public.accounts_useraccount_id_seq', 9, true);
+
+
+--
+-- Name: accounts_useraccount_user_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: capstone
+--
+
+SELECT pg_catalog.setval('public.accounts_useraccount_user_permissions_id_seq', 1, false);
+
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE SET; Schema: public; Owner: capstone
+--
+
+SELECT pg_catalog.setval('public.auth_group_id_seq', 1, false);
+
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: capstone
+--
+
+SELECT pg_catalog.setval('public.auth_group_permissions_id_seq', 1, false);
+
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE SET; Schema: public; Owner: capstone
+--
+
+SELECT pg_catalog.setval('public.auth_permission_id_seq', 56, true);
+
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: capstone
+--
+
+SELECT pg_catalog.setval('public.django_admin_log_id_seq', 85, true);
+
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: capstone
+--
+
+SELECT pg_catalog.setval('public.django_content_type_id_seq', 14, true);
+
+
+--
+-- Name: django_migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: capstone
+--
+
+SELECT pg_catalog.setval('public.django_migrations_id_seq', 21, true);
+
+
+--
+-- Name: store_cart_id_seq; Type: SEQUENCE SET; Schema: public; Owner: capstone
+--
+
+SELECT pg_catalog.setval('public.store_cart_id_seq', 1, false);
+
+
+--
+-- Name: store_cart_products_id_seq; Type: SEQUENCE SET; Schema: public; Owner: capstone
+--
+
+SELECT pg_catalog.setval('public.store_cart_products_id_seq', 1, false);
+
+
+--
+-- Name: store_category_id_seq; Type: SEQUENCE SET; Schema: public; Owner: capstone
+--
+
+SELECT pg_catalog.setval('public.store_category_id_seq', 6, true);
+
+
+--
+-- Name: store_orderitem_id_seq; Type: SEQUENCE SET; Schema: public; Owner: capstone
+--
+
+SELECT pg_catalog.setval('public.store_orderitem_id_seq', 29, true);
+
+
+--
+-- Name: store_orders_id_seq; Type: SEQUENCE SET; Schema: public; Owner: capstone
+--
+
+SELECT pg_catalog.setval('public.store_orders_id_seq', 26, true);
+
+
+--
+-- Name: store_product_id_seq; Type: SEQUENCE SET; Schema: public; Owner: capstone
+--
+
+SELECT pg_catalog.setval('public.store_product_id_seq', 32, true);
+
+
+--
+-- Name: store_product_tags_id_seq; Type: SEQUENCE SET; Schema: public; Owner: capstone
+--
+
+SELECT pg_catalog.setval('public.store_product_tags_id_seq', 1, false);
+
+
+--
+-- Name: store_rating_id_seq; Type: SEQUENCE SET; Schema: public; Owner: capstone
+--
+
+SELECT pg_catalog.setval('public.store_rating_id_seq', 38, true);
+
+
+--
+-- Name: store_tag_id_seq; Type: SEQUENCE SET; Schema: public; Owner: capstone
+--
+
+SELECT pg_catalog.setval('public.store_tag_id_seq', 1, false);
+
+
+--
+-- Name: store_wishlist_id_seq; Type: SEQUENCE SET; Schema: public; Owner: capstone
+--
+
+SELECT pg_catalog.setval('public.store_wishlist_id_seq', 1, false);
+
+
+--
+-- Name: store_wishlist_products_id_seq; Type: SEQUENCE SET; Schema: public; Owner: capstone
+--
+
+SELECT pg_catalog.setval('public.store_wishlist_products_id_seq', 1, false);
+
+
+--
+-- Name: accounts_useraccount accounts_useraccount_email_key; Type: CONSTRAINT; Schema: public; Owner: capstone
+--
+
+ALTER TABLE ONLY public.accounts_useraccount
+    ADD CONSTRAINT accounts_useraccount_email_key UNIQUE (email);
+
+
+--
+-- Name: accounts_useraccount_groups accounts_useraccount_gro_useraccount_id_group_id_9e1772b3_uniq; Type: CONSTRAINT; Schema: public; Owner: capstone
+--
+
+ALTER TABLE ONLY public.accounts_useraccount_groups
+    ADD CONSTRAINT accounts_useraccount_gro_useraccount_id_group_id_9e1772b3_uniq UNIQUE (useraccount_id, group_id);
+
+
+--
+-- Name: accounts_useraccount_groups accounts_useraccount_groups_pkey; Type: CONSTRAINT; Schema: public; Owner: capstone
+--
+
+ALTER TABLE ONLY public.accounts_useraccount_groups
+    ADD CONSTRAINT accounts_useraccount_groups_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: accounts_useraccount accounts_useraccount_pkey; Type: CONSTRAINT; Schema: public; Owner: capstone
+--
+
+ALTER TABLE ONLY public.accounts_useraccount
+    ADD CONSTRAINT accounts_useraccount_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: accounts_useraccount_user_permissions accounts_useraccount_use_useraccount_id_permissio_54014a73_uniq; Type: CONSTRAINT; Schema: public; Owner: capstone
+--
+
+ALTER TABLE ONLY public.accounts_useraccount_user_permissions
+    ADD CONSTRAINT accounts_useraccount_use_useraccount_id_permissio_54014a73_uniq UNIQUE (useraccount_id, permission_id);
+
+
+--
+-- Name: accounts_useraccount_user_permissions accounts_useraccount_user_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: capstone
+--
+
+ALTER TABLE ONLY public.accounts_useraccount_user_permissions
+    ADD CONSTRAINT accounts_useraccount_user_permissions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_group auth_group_name_key; Type: CONSTRAINT; Schema: public; Owner: capstone
+--
+
+ALTER TABLE ONLY public.auth_group
+    ADD CONSTRAINT auth_group_name_key UNIQUE (name);
+
+
+--
+-- Name: auth_group_permissions auth_group_permissions_group_id_permission_id_0cd325b0_uniq; Type: CONSTRAINT; Schema: public; Owner: capstone
+--
+
+ALTER TABLE ONLY public.auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_group_id_permission_id_0cd325b0_uniq UNIQUE (group_id, permission_id);
+
+
+--
+-- Name: auth_group_permissions auth_group_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: capstone
+--
+
+ALTER TABLE ONLY public.auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_group auth_group_pkey; Type: CONSTRAINT; Schema: public; Owner: capstone
+--
+
+ALTER TABLE ONLY public.auth_group
+    ADD CONSTRAINT auth_group_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_permission auth_permission_content_type_id_codename_01ab375a_uniq; Type: CONSTRAINT; Schema: public; Owner: capstone
+--
+
+ALTER TABLE ONLY public.auth_permission
+    ADD CONSTRAINT auth_permission_content_type_id_codename_01ab375a_uniq UNIQUE (content_type_id, codename);
+
+
+--
+-- Name: auth_permission auth_permission_pkey; Type: CONSTRAINT; Schema: public; Owner: capstone
+--
+
+ALTER TABLE ONLY public.auth_permission
+    ADD CONSTRAINT auth_permission_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_admin_log django_admin_log_pkey; Type: CONSTRAINT; Schema: public; Owner: capstone
+--
+
+ALTER TABLE ONLY public.django_admin_log
+    ADD CONSTRAINT django_admin_log_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_content_type django_content_type_app_label_model_76bd3d3b_uniq; Type: CONSTRAINT; Schema: public; Owner: capstone
+--
+
+ALTER TABLE ONLY public.django_content_type
+    ADD CONSTRAINT django_content_type_app_label_model_76bd3d3b_uniq UNIQUE (app_label, model);
+
+
+--
+-- Name: django_content_type django_content_type_pkey; Type: CONSTRAINT; Schema: public; Owner: capstone
+--
+
+ALTER TABLE ONLY public.django_content_type
+    ADD CONSTRAINT django_content_type_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_migrations django_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: capstone
+--
+
+ALTER TABLE ONLY public.django_migrations
+    ADD CONSTRAINT django_migrations_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_session django_session_pkey; Type: CONSTRAINT; Schema: public; Owner: capstone
+--
+
+ALTER TABLE ONLY public.django_session
+    ADD CONSTRAINT django_session_pkey PRIMARY KEY (session_key);
+
+
+--
+-- Name: store_cart store_cart_pkey; Type: CONSTRAINT; Schema: public; Owner: capstone
+--
+
+ALTER TABLE ONLY public.store_cart
+    ADD CONSTRAINT store_cart_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: store_cart_products store_cart_products_cart_id_product_id_23b8941b_uniq; Type: CONSTRAINT; Schema: public; Owner: capstone
+--
+
+ALTER TABLE ONLY public.store_cart_products
+    ADD CONSTRAINT store_cart_products_cart_id_product_id_23b8941b_uniq UNIQUE (cart_id, product_id);
+
+
+--
+-- Name: store_cart_products store_cart_products_pkey; Type: CONSTRAINT; Schema: public; Owner: capstone
+--
+
+ALTER TABLE ONLY public.store_cart_products
+    ADD CONSTRAINT store_cart_products_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: store_category store_category_pkey; Type: CONSTRAINT; Schema: public; Owner: capstone
+--
+
+ALTER TABLE ONLY public.store_category
+    ADD CONSTRAINT store_category_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: store_orderitem store_orderitem_pkey; Type: CONSTRAINT; Schema: public; Owner: capstone
+--
+
+ALTER TABLE ONLY public.store_orderitem
+    ADD CONSTRAINT store_orderitem_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: store_orders store_orders_order_id_key; Type: CONSTRAINT; Schema: public; Owner: capstone
+--
+
+ALTER TABLE ONLY public.store_orders
+    ADD CONSTRAINT store_orders_order_id_key UNIQUE (order_id);
+
+
+--
+-- Name: store_orders store_orders_pkey; Type: CONSTRAINT; Schema: public; Owner: capstone
+--
+
+ALTER TABLE ONLY public.store_orders
+    ADD CONSTRAINT store_orders_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: store_product store_product_pkey; Type: CONSTRAINT; Schema: public; Owner: capstone
+--
+
+ALTER TABLE ONLY public.store_product
+    ADD CONSTRAINT store_product_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: store_product_tags store_product_tags_pkey; Type: CONSTRAINT; Schema: public; Owner: capstone
+--
+
+ALTER TABLE ONLY public.store_product_tags
+    ADD CONSTRAINT store_product_tags_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: store_product_tags store_product_tags_product_id_tag_id_ebf36e5a_uniq; Type: CONSTRAINT; Schema: public; Owner: capstone
+--
+
+ALTER TABLE ONLY public.store_product_tags
+    ADD CONSTRAINT store_product_tags_product_id_tag_id_ebf36e5a_uniq UNIQUE (product_id, tag_id);
+
+
+--
+-- Name: store_rating store_rating_pkey; Type: CONSTRAINT; Schema: public; Owner: capstone
+--
+
+ALTER TABLE ONLY public.store_rating
+    ADD CONSTRAINT store_rating_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: store_tag store_tag_pkey; Type: CONSTRAINT; Schema: public; Owner: capstone
+--
+
+ALTER TABLE ONLY public.store_tag
+    ADD CONSTRAINT store_tag_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: store_wishlist store_wishlist_pkey; Type: CONSTRAINT; Schema: public; Owner: capstone
+--
+
+ALTER TABLE ONLY public.store_wishlist
+    ADD CONSTRAINT store_wishlist_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: store_wishlist_products store_wishlist_products_pkey; Type: CONSTRAINT; Schema: public; Owner: capstone
+--
+
+ALTER TABLE ONLY public.store_wishlist_products
+    ADD CONSTRAINT store_wishlist_products_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: store_wishlist_products store_wishlist_products_wishlist_id_product_id_f5206a1b_uniq; Type: CONSTRAINT; Schema: public; Owner: capstone
+--
+
+ALTER TABLE ONLY public.store_wishlist_products
+    ADD CONSTRAINT store_wishlist_products_wishlist_id_product_id_f5206a1b_uniq UNIQUE (wishlist_id, product_id);
+
+
+--
+-- Name: accounts_useraccount_email_edd49186_like; Type: INDEX; Schema: public; Owner: capstone
+--
+
+CREATE INDEX accounts_useraccount_email_edd49186_like ON public.accounts_useraccount USING btree (email varchar_pattern_ops);
+
+
+--
+-- Name: accounts_useraccount_groups_group_id_07495d90; Type: INDEX; Schema: public; Owner: capstone
+--
+
+CREATE INDEX accounts_useraccount_groups_group_id_07495d90 ON public.accounts_useraccount_groups USING btree (group_id);
+
+
+--
+-- Name: accounts_useraccount_groups_useraccount_id_1eefb17f; Type: INDEX; Schema: public; Owner: capstone
+--
+
+CREATE INDEX accounts_useraccount_groups_useraccount_id_1eefb17f ON public.accounts_useraccount_groups USING btree (useraccount_id);
+
+
+--
+-- Name: accounts_useraccount_user_permissions_permission_id_5751e5ed; Type: INDEX; Schema: public; Owner: capstone
+--
+
+CREATE INDEX accounts_useraccount_user_permissions_permission_id_5751e5ed ON public.accounts_useraccount_user_permissions USING btree (permission_id);
+
+
+--
+-- Name: accounts_useraccount_user_permissions_useraccount_id_9ee22c82; Type: INDEX; Schema: public; Owner: capstone
+--
+
+CREATE INDEX accounts_useraccount_user_permissions_useraccount_id_9ee22c82 ON public.accounts_useraccount_user_permissions USING btree (useraccount_id);
+
+
+--
+-- Name: auth_group_name_a6ea08ec_like; Type: INDEX; Schema: public; Owner: capstone
+--
+
+CREATE INDEX auth_group_name_a6ea08ec_like ON public.auth_group USING btree (name varchar_pattern_ops);
+
+
+--
+-- Name: auth_group_permissions_group_id_b120cbf9; Type: INDEX; Schema: public; Owner: capstone
+--
+
+CREATE INDEX auth_group_permissions_group_id_b120cbf9 ON public.auth_group_permissions USING btree (group_id);
+
+
+--
+-- Name: auth_group_permissions_permission_id_84c5c92e; Type: INDEX; Schema: public; Owner: capstone
+--
+
+CREATE INDEX auth_group_permissions_permission_id_84c5c92e ON public.auth_group_permissions USING btree (permission_id);
+
+
+--
+-- Name: auth_permission_content_type_id_2f476e4b; Type: INDEX; Schema: public; Owner: capstone
+--
+
+CREATE INDEX auth_permission_content_type_id_2f476e4b ON public.auth_permission USING btree (content_type_id);
+
+
+--
+-- Name: django_admin_log_content_type_id_c4bce8eb; Type: INDEX; Schema: public; Owner: capstone
+--
+
+CREATE INDEX django_admin_log_content_type_id_c4bce8eb ON public.django_admin_log USING btree (content_type_id);
+
+
+--
+-- Name: django_admin_log_user_id_c564eba6; Type: INDEX; Schema: public; Owner: capstone
+--
+
+CREATE INDEX django_admin_log_user_id_c564eba6 ON public.django_admin_log USING btree (user_id);
+
+
+--
+-- Name: django_session_expire_date_a5c62663; Type: INDEX; Schema: public; Owner: capstone
+--
+
+CREATE INDEX django_session_expire_date_a5c62663 ON public.django_session USING btree (expire_date);
+
+
+--
+-- Name: django_session_session_key_c0390e0f_like; Type: INDEX; Schema: public; Owner: capstone
+--
+
+CREATE INDEX django_session_session_key_c0390e0f_like ON public.django_session USING btree (session_key varchar_pattern_ops);
+
+
+--
+-- Name: store_cart_products_cart_id_b2b8ccf2; Type: INDEX; Schema: public; Owner: capstone
+--
+
+CREATE INDEX store_cart_products_cart_id_b2b8ccf2 ON public.store_cart_products USING btree (cart_id);
+
+
+--
+-- Name: store_cart_products_product_id_e87a51d2; Type: INDEX; Schema: public; Owner: capstone
+--
+
+CREATE INDEX store_cart_products_product_id_e87a51d2 ON public.store_cart_products USING btree (product_id);
+
+
+--
+-- Name: store_cart_user_id_99e99107; Type: INDEX; Schema: public; Owner: capstone
+--
+
+CREATE INDEX store_cart_user_id_99e99107 ON public.store_cart USING btree (user_id);
+
+
+--
+-- Name: store_orderitem_order_id_acf8722d; Type: INDEX; Schema: public; Owner: capstone
+--
+
+CREATE INDEX store_orderitem_order_id_acf8722d ON public.store_orderitem USING btree (order_id);
+
+
+--
+-- Name: store_orderitem_product_id_f2b098d4; Type: INDEX; Schema: public; Owner: capstone
+--
+
+CREATE INDEX store_orderitem_product_id_f2b098d4 ON public.store_orderitem USING btree (product_id);
+
+
+--
+-- Name: store_orders_order_id_e929bdd6_like; Type: INDEX; Schema: public; Owner: capstone
+--
+
+CREATE INDEX store_orders_order_id_e929bdd6_like ON public.store_orders USING btree (order_id varchar_pattern_ops);
+
+
+--
+-- Name: store_orders_user_id_85afb81b; Type: INDEX; Schema: public; Owner: capstone
+--
+
+CREATE INDEX store_orders_user_id_85afb81b ON public.store_orders USING btree (user_id);
+
+
+--
+-- Name: store_product_category_id_574bae65; Type: INDEX; Schema: public; Owner: capstone
+--
+
+CREATE INDEX store_product_category_id_574bae65 ON public.store_product USING btree (category_id);
+
+
+--
+-- Name: store_product_tags_product_id_8d6522f8; Type: INDEX; Schema: public; Owner: capstone
+--
+
+CREATE INDEX store_product_tags_product_id_8d6522f8 ON public.store_product_tags USING btree (product_id);
+
+
+--
+-- Name: store_product_tags_tag_id_31f10719; Type: INDEX; Schema: public; Owner: capstone
+--
+
+CREATE INDEX store_product_tags_tag_id_31f10719 ON public.store_product_tags USING btree (tag_id);
+
+
+--
+-- Name: store_rating_product_id_9b66e5c6; Type: INDEX; Schema: public; Owner: capstone
+--
+
+CREATE INDEX store_rating_product_id_9b66e5c6 ON public.store_rating USING btree (product_id);
+
+
+--
+-- Name: store_rating_user_id_3177bf36; Type: INDEX; Schema: public; Owner: capstone
+--
+
+CREATE INDEX store_rating_user_id_3177bf36 ON public.store_rating USING btree (user_id);
+
+
+--
+-- Name: store_wishlist_products_product_id_c96a0fb8; Type: INDEX; Schema: public; Owner: capstone
+--
+
+CREATE INDEX store_wishlist_products_product_id_c96a0fb8 ON public.store_wishlist_products USING btree (product_id);
+
+
+--
+-- Name: store_wishlist_products_wishlist_id_f15d7b94; Type: INDEX; Schema: public; Owner: capstone
+--
+
+CREATE INDEX store_wishlist_products_wishlist_id_f15d7b94 ON public.store_wishlist_products USING btree (wishlist_id);
+
+
+--
+-- Name: store_wishlist_user_id_afcc4e88; Type: INDEX; Schema: public; Owner: capstone
+--
+
+CREATE INDEX store_wishlist_user_id_afcc4e88 ON public.store_wishlist USING btree (user_id);
+
+
+--
+-- Name: accounts_useraccount_groups accounts_useraccount_groups_group_id_07495d90_fk_auth_group_id; Type: FK CONSTRAINT; Schema: public; Owner: capstone
+--
+
+ALTER TABLE ONLY public.accounts_useraccount_groups
+    ADD CONSTRAINT accounts_useraccount_groups_group_id_07495d90_fk_auth_group_id FOREIGN KEY (group_id) REFERENCES public.auth_group(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: accounts_useraccount_user_permissions accounts_useraccount_permission_id_5751e5ed_fk_auth_perm; Type: FK CONSTRAINT; Schema: public; Owner: capstone
+--
+
+ALTER TABLE ONLY public.accounts_useraccount_user_permissions
+    ADD CONSTRAINT accounts_useraccount_permission_id_5751e5ed_fk_auth_perm FOREIGN KEY (permission_id) REFERENCES public.auth_permission(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: accounts_useraccount_groups accounts_useraccount_useraccount_id_1eefb17f_fk_accounts_; Type: FK CONSTRAINT; Schema: public; Owner: capstone
+--
+
+ALTER TABLE ONLY public.accounts_useraccount_groups
+    ADD CONSTRAINT accounts_useraccount_useraccount_id_1eefb17f_fk_accounts_ FOREIGN KEY (useraccount_id) REFERENCES public.accounts_useraccount(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: accounts_useraccount_user_permissions accounts_useraccount_useraccount_id_9ee22c82_fk_accounts_; Type: FK CONSTRAINT; Schema: public; Owner: capstone
+--
+
+ALTER TABLE ONLY public.accounts_useraccount_user_permissions
+    ADD CONSTRAINT accounts_useraccount_useraccount_id_9ee22c82_fk_accounts_ FOREIGN KEY (useraccount_id) REFERENCES public.accounts_useraccount(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_group_permissions auth_group_permissio_permission_id_84c5c92e_fk_auth_perm; Type: FK CONSTRAINT; Schema: public; Owner: capstone
+--
+
+ALTER TABLE ONLY public.auth_group_permissions
+    ADD CONSTRAINT auth_group_permissio_permission_id_84c5c92e_fk_auth_perm FOREIGN KEY (permission_id) REFERENCES public.auth_permission(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_group_permissions auth_group_permissions_group_id_b120cbf9_fk_auth_group_id; Type: FK CONSTRAINT; Schema: public; Owner: capstone
+--
+
+ALTER TABLE ONLY public.auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_group_id_b120cbf9_fk_auth_group_id FOREIGN KEY (group_id) REFERENCES public.auth_group(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_permission auth_permission_content_type_id_2f476e4b_fk_django_co; Type: FK CONSTRAINT; Schema: public; Owner: capstone
+--
+
+ALTER TABLE ONLY public.auth_permission
+    ADD CONSTRAINT auth_permission_content_type_id_2f476e4b_fk_django_co FOREIGN KEY (content_type_id) REFERENCES public.django_content_type(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: django_admin_log django_admin_log_content_type_id_c4bce8eb_fk_django_co; Type: FK CONSTRAINT; Schema: public; Owner: capstone
+--
+
+ALTER TABLE ONLY public.django_admin_log
+    ADD CONSTRAINT django_admin_log_content_type_id_c4bce8eb_fk_django_co FOREIGN KEY (content_type_id) REFERENCES public.django_content_type(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: django_admin_log django_admin_log_user_id_c564eba6_fk_accounts_useraccount_id; Type: FK CONSTRAINT; Schema: public; Owner: capstone
+--
+
+ALTER TABLE ONLY public.django_admin_log
+    ADD CONSTRAINT django_admin_log_user_id_c564eba6_fk_accounts_useraccount_id FOREIGN KEY (user_id) REFERENCES public.accounts_useraccount(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: store_cart_products store_cart_products_cart_id_b2b8ccf2_fk_store_cart_id; Type: FK CONSTRAINT; Schema: public; Owner: capstone
+--
+
+ALTER TABLE ONLY public.store_cart_products
+    ADD CONSTRAINT store_cart_products_cart_id_b2b8ccf2_fk_store_cart_id FOREIGN KEY (cart_id) REFERENCES public.store_cart(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: store_cart_products store_cart_products_product_id_e87a51d2_fk_store_product_id; Type: FK CONSTRAINT; Schema: public; Owner: capstone
+--
+
+ALTER TABLE ONLY public.store_cart_products
+    ADD CONSTRAINT store_cart_products_product_id_e87a51d2_fk_store_product_id FOREIGN KEY (product_id) REFERENCES public.store_product(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: store_cart store_cart_user_id_99e99107_fk_accounts_useraccount_id; Type: FK CONSTRAINT; Schema: public; Owner: capstone
+--
+
+ALTER TABLE ONLY public.store_cart
+    ADD CONSTRAINT store_cart_user_id_99e99107_fk_accounts_useraccount_id FOREIGN KEY (user_id) REFERENCES public.accounts_useraccount(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: store_orderitem store_orderitem_order_id_acf8722d_fk_store_orders_id; Type: FK CONSTRAINT; Schema: public; Owner: capstone
+--
+
+ALTER TABLE ONLY public.store_orderitem
+    ADD CONSTRAINT store_orderitem_order_id_acf8722d_fk_store_orders_id FOREIGN KEY (order_id) REFERENCES public.store_orders(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: store_orderitem store_orderitem_product_id_f2b098d4_fk_store_product_id; Type: FK CONSTRAINT; Schema: public; Owner: capstone
+--
+
+ALTER TABLE ONLY public.store_orderitem
+    ADD CONSTRAINT store_orderitem_product_id_f2b098d4_fk_store_product_id FOREIGN KEY (product_id) REFERENCES public.store_product(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: store_orders store_orders_user_id_85afb81b_fk_accounts_useraccount_id; Type: FK CONSTRAINT; Schema: public; Owner: capstone
+--
+
+ALTER TABLE ONLY public.store_orders
+    ADD CONSTRAINT store_orders_user_id_85afb81b_fk_accounts_useraccount_id FOREIGN KEY (user_id) REFERENCES public.accounts_useraccount(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: store_product store_product_category_id_574bae65_fk_store_category_id; Type: FK CONSTRAINT; Schema: public; Owner: capstone
+--
+
+ALTER TABLE ONLY public.store_product
+    ADD CONSTRAINT store_product_category_id_574bae65_fk_store_category_id FOREIGN KEY (category_id) REFERENCES public.store_category(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: store_product_tags store_product_tags_product_id_8d6522f8_fk_store_product_id; Type: FK CONSTRAINT; Schema: public; Owner: capstone
+--
+
+ALTER TABLE ONLY public.store_product_tags
+    ADD CONSTRAINT store_product_tags_product_id_8d6522f8_fk_store_product_id FOREIGN KEY (product_id) REFERENCES public.store_product(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: store_product_tags store_product_tags_tag_id_31f10719_fk_store_tag_id; Type: FK CONSTRAINT; Schema: public; Owner: capstone
+--
+
+ALTER TABLE ONLY public.store_product_tags
+    ADD CONSTRAINT store_product_tags_tag_id_31f10719_fk_store_tag_id FOREIGN KEY (tag_id) REFERENCES public.store_tag(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: store_rating store_rating_product_id_9b66e5c6_fk_store_product_id; Type: FK CONSTRAINT; Schema: public; Owner: capstone
+--
+
+ALTER TABLE ONLY public.store_rating
+    ADD CONSTRAINT store_rating_product_id_9b66e5c6_fk_store_product_id FOREIGN KEY (product_id) REFERENCES public.store_product(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: store_rating store_rating_user_id_3177bf36_fk_accounts_useraccount_id; Type: FK CONSTRAINT; Schema: public; Owner: capstone
+--
+
+ALTER TABLE ONLY public.store_rating
+    ADD CONSTRAINT store_rating_user_id_3177bf36_fk_accounts_useraccount_id FOREIGN KEY (user_id) REFERENCES public.accounts_useraccount(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: store_wishlist_products store_wishlist_produ_wishlist_id_f15d7b94_fk_store_wis; Type: FK CONSTRAINT; Schema: public; Owner: capstone
+--
+
+ALTER TABLE ONLY public.store_wishlist_products
+    ADD CONSTRAINT store_wishlist_produ_wishlist_id_f15d7b94_fk_store_wis FOREIGN KEY (wishlist_id) REFERENCES public.store_wishlist(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: store_wishlist_products store_wishlist_products_product_id_c96a0fb8_fk_store_product_id; Type: FK CONSTRAINT; Schema: public; Owner: capstone
+--
+
+ALTER TABLE ONLY public.store_wishlist_products
+    ADD CONSTRAINT store_wishlist_products_product_id_c96a0fb8_fk_store_product_id FOREIGN KEY (product_id) REFERENCES public.store_product(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: store_wishlist store_wishlist_user_id_afcc4e88_fk_accounts_useraccount_id; Type: FK CONSTRAINT; Schema: public; Owner: capstone
+--
+
+ALTER TABLE ONLY public.store_wishlist
+    ADD CONSTRAINT store_wishlist_user_id_afcc4e88_fk_accounts_useraccount_id FOREIGN KEY (user_id) REFERENCES public.accounts_useraccount(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- PostgreSQL database dump complete
+--
+

@@ -1,0 +1,3 @@
+[flake8]
+# exclude files
+exclude = settings.py, tests.py, migrations
